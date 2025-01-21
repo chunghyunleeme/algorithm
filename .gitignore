@@ -1,0 +1,9 @@
+# VSCode 설정 폴더 무시
+.vscode/
+
+# 컴파일 관련 파일 무시
+compile.txt
+main.out
+
+# 특정 파일 무시 (한글 인코딩된 파일명)
+.workbook/
