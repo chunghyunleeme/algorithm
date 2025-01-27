@@ -1,33 +1,26 @@
-#include <bits/stdc++.h>
-using namespace std;
-string S, T, ret;
-stack<char> stk; 
+#include <bits/stdc++.h> 
+using namespace std; 
+int n, a, b, ret; 
+vector<pair<int, int>> v;
+priority_queue<int, vector<int>, greater<int>> pq; 
 int main() {
-    cin >> S >> T;
-    for(char a : S){ 
-        stk.push(a); 
-        if(stk.size() >= T.size() && stk.top() == T[T.size() - 1]){
-            string ss = "";
-            for(char i : T){
-                ss += stk.top();
-                stk.pop();
-            } 
-            reverse(ss.begin(), ss.end());
-            if(T != ss){
-                for(int i : ss){
-                    stk.push(i);
-                }
-            }
-        }  
-    }    
-    if(stk.size() == 0){
-        cout << "FRULA\n";
-    }else{
-        while(stk.size()){
-            ret += stk.top(); stk.pop();
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+	cin >> n; 
+	for(int i = 0; i < n; i++){
+		cin >> a >> b; 
+		v.push_back({a, b}); 
+	}
+	sort(v.begin(), v.end());
+    for(int i = 0; i < v.size(); i++){
+        ret += v[i].second;
+        pq.push(v[i].second);
+        if(v[i].first < pq.size()){
+            ret -= pq.top();
+            pq.pop();
         }
-        reverse(ret.begin(), ret.end()); 
-        cout << ret << "\n";
     }
+    cout << ret;
     return 0;
-} 
+}
