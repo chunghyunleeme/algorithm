@@ -1,17 +1,33 @@
 #include <bits/stdc++.h>
 using namespace std;
-int n, ret, x;
-int main(){
-    cin >> n;
-    vector<int> a(n);
-    for(int i = 0; i < n; i++) cin >> a[i];
-    cin >> x;
-    sort(a.begin(), a.end());
-    int l = 0, r = n - 1;
-    while(l < r){
-        if(a[l] + a[r] == x)r--, l++, ret++;
-        else if(a[l] + a[r] > x) r--;
-        else if(a[l] + a[r] < x) l++;
+string S, T, ret;
+stack<char> stk; 
+int main() {
+    cin >> S >> T;
+    for(char a : S){ 
+        stk.push(a); 
+        if(stk.size() >= T.size() && stk.top() == T[T.size() - 1]){
+            string ss = "";
+            for(char i : T){
+                ss += stk.top();
+                stk.pop();
+            } 
+            reverse(ss.begin(), ss.end());
+            if(T != ss){
+                for(int i : ss){
+                    stk.push(i);
+                }
+            }
+        }  
+    }    
+    if(stk.size() == 0){
+        cout << "FRULA\n";
+    }else{
+        while(stk.size()){
+            ret += stk.top(); stk.pop();
+        }
+        reverse(ret.begin(), ret.end()); 
+        cout << ret << "\n";
     }
-    cout << ret;
-}
+    return 0;
+} 
