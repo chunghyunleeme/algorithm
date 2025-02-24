@@ -1,22 +1,25 @@
 #include <bits/stdc++.h>
 using namespace std;
-int from, to, n, idx = 0, ret = 1;  
+int n, k;
+long long ret;
 int main(){
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    cin >> n;
-    vector<pair<int, int>> v; 
-    for(int i = 0; i < n; i++){
-        cin >> from >> to;
-        v.push_back({to, from});
-    }
-    sort(v.begin(), v.end());
-    from = v[0].second;
-    to = v[0].first;
-    for(int i = 1; i < n; i++){
-        if(v[i].second < to) continue;
-        from = v[i].second; to = v[i].first; ret++;
-    }
-    cout << ret;
-    return 0;
+	cin >> n >> k;
+	vector<pair<int, int>> v(n);
+	vector<int> vv(k);
+	for(int i = 0; i < n; i++) cin >> v[i].first >> v[i].second;
+	for(int j = 0; j < k; j++) cin >> vv[j];
+
+	sort(v.begin(), v.end());
+	sort(vv.begin(), vv.end());
+	priority_queue<int> pq;
+
+	int j = 0;
+	for(int i = 0; i < k; i++){
+		while(j < n && v[j].first <= vv[i]) pq.push(v[j++].second);
+		if(pq.size()){
+			ret += pq.top(); pq.pop();
+		}
+	}
+	cout << ret;
+	return 0;
 }
